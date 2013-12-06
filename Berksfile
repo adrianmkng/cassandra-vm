@@ -1,4 +1,4 @@
 site :opscode
 
-cookbook 'ruby_build'
+cookbook 'java'
 cookbook 'cassandra'

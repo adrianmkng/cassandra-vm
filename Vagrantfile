@@ -5,17 +5,24 @@
 VAGRANTFILE_API_VERSION = "2"
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
-  config.vm.box = "precise"
-  config.vm.box_url = "http://files.vagrantup.com/precise64.box"
-  config.vm.host_name = "cassandra-node1"
+  config.vm.box = "precise64"
+  config.vm.box_url = "https://dl.dropboxusercontent.com/u/35364246/ubuntu-precise_x86_64.box"
+  config.vm.host_name = "cassandra-node-1"
   config.vm.network :private_network, ip: "192.168.10.2"
 
   config.vm.provision :chef_solo do |chef|
-    chef.add_recipe "ruby_build"
+    chef.add_recipe "apt"
+    chef.add_recipe "java::oracle"
     chef.add_recipe "cassandra"
- 
-    # You may also specify custom JSON attributes:
-    # chef.json = { :mysql_password => "foo" }
+
+    chef.json = { :java => {
+                    :install_flavor => "oracle",
+                    :jdk_version => "7",
+                    :oracle => {
+                      "accept_oracle_download_terms" => true
+                    }
+                  }
+                }
   end
 
   config.vm.provider :virtualbox do |vb|
