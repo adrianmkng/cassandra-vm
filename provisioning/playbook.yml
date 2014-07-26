@@ -1,0 +1,9 @@
+---
+- hosts: all
+  sudo: True
+  vars:
+    - cluster_name: Test Cluster
+    - seeds: 192.168.10.201
+  roles:
+    - cassandra
+
