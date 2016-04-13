@@ -1,11 +1,14 @@
 - name: add cassandra debian repository
   apt_repository: repo='deb http://www.apache.org/dist/cassandra/debian 20x main'
 
-- name: add the key for the cassandra debian repo
+- name: add the first key for the cassandra
   apt_key: keyserver=pgp.mit.edu id=F758CE318D77295D
 
-- name: add the other key for cassandra
+- name: add the second key for cassandra
   apt_key: keyserver=pgp.mit.edu id=2B5C1B00
+
+- name: add the third key for cassandra
+  apt_key: keyserver=pgp.mit.edu id=0353B12C
 
 - name: install cassandra
   apt: name=cassandra update_cache=yes
